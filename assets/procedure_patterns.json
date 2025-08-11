@@ -1,0 +1,450 @@
+{
+  "version": "2025-08-10",
+  "notes": "Patterns target Section 0 first; items in other PCS sections are marked in 'section' and surfaced as outside-scope until we enable those sections.",
+  "procedures": [
+    {
+      "specialty": "Integumentary",
+      "name": "Debridement",
+      "section": "0",
+      "triggers": [
+        "\\bexcisional debrid",
+        "\\bsharp debrid",
+        "\\bexcision(?!\\s+biopsy)",
+        "\\bdebrid(?:ement)?\\b.*\\b(fascia|muscle|tendon|bone)\\b"
+      ],
+      "root_operation_hint": "Excision",
+      "body_system_hints": [
+        {
+          "if": "\\bskin\\b",
+          "body_system": "Skin and Breast",
+          "approach": "External"
+        },
+        {
+          "if": "\\bsubcut|fascia\\b",
+          "body_system": "Subcutaneous Tissue and Fascia",
+          "approach": "Open"
+        },
+        {
+          "if": "\\bmuscle|myofascial\\b",
+          "body_system": "Muscles",
+          "approach": "Open"
+        },
+        {
+          "if": "\\bbone|osteomyelitis\\b",
+          "body_system": "Lower Bones|Upper Bones",
+          "approach": "Open"
+        }
+      ]
+    },
+    {
+      "specialty": "Integumentary",
+      "name": "Drainage (I&D)",
+      "section": "0",
+      "triggers": [
+        "\\bincision and drainage\\b",
+        "\\bi\\s*&\\s*d\\b",
+        "\\bdrainage\\b.*(abscess|hematoma)"
+      ],
+      "root_operation_hint": "Drainage",
+      "body_system_hints": [
+        {
+          "if": "\\bskin|subcut|fascia|cellulitis|abscess\\b",
+          "body_system": "Subcutaneous Tissue and Fascia",
+          "approach": "Open"
+        }
+      ]
+    },
+    {
+      "specialty": "Musculoskeletal",
+      "name": "Anterior Fusion (ALIF)",
+      "section": "0",
+      "triggers": [
+        "\\balif\\b",
+        "anterior lumbar interbody fusion",
+        "\\banterior\\s+fusion\\b"
+      ],
+      "root_operation_hint": "Fusion",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Lower Joints|Upper Joints",
+          "approach": "Open"
+        }
+      ],
+      "qualifier_hints": [
+        "Anterior column"
+      ]
+    },
+    {
+      "specialty": "Musculoskeletal",
+      "name": "Posterior Fusion (PLIF/TLIF)",
+      "section": "0",
+      "triggers": [
+        "\\bplif\\b",
+        "\\btlif\\b",
+        "\\bposterior\\s+fusion\\b"
+      ],
+      "root_operation_hint": "Fusion",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Lower Joints|Upper Joints",
+          "approach": "Open"
+        }
+      ],
+      "qualifier_hints": [
+        "Posterior column"
+      ]
+    },
+    {
+      "specialty": "Musculoskeletal",
+      "name": "Hip Arthroplasty",
+      "section": "0",
+      "triggers": [
+        "\\btha\\b",
+        "total hip arthroplasty",
+        "hip replacement",
+        "\\bhemiarthroplasty\\b"
+      ],
+      "root_operation_hint": "Replacement",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Lower Joints",
+          "approach": "Open"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "\\bcement(ed)?\\b",
+          "device": "Synthetic Substitute, Cemented"
+        },
+        {
+          "if": "\\buncement(ed)?\\b",
+          "device": "Synthetic Substitute, Uncemented"
+        },
+        {
+          "if": "ceramic on poly",
+          "device": "Synthetic Substitute, Ceramic on Polyethylene"
+        },
+        {
+          "if": "metal on poly",
+          "device": "Synthetic Substitute, Metal on Polyethylene"
+        }
+      ]
+    },
+    {
+      "specialty": "Musculoskeletal",
+      "name": "Knee Arthroplasty",
+      "section": "0",
+      "triggers": [
+        "\\totka?\\b",
+        "\\btotal knee\\b",
+        "\\bunicompart|unicondyl|uka\\b"
+      ],
+      "root_operation_hint": "Replacement",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Lower Joints",
+          "approach": "Open"
+        }
+      ],
+      "qualifier_hints": [
+        {
+          "if": "\\bunicompart|unicondyl|uka\\b",
+          "qualifier": "Unicondylar"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "\\bcement(ed)?\\b",
+          "device": "Synthetic Substitute, Cemented"
+        },
+        {
+          "if": "\\buncement(ed)?\\b",
+          "device": "Synthetic Substitute, Uncemented"
+        }
+      ]
+    },
+    {
+      "specialty": "Gastrointestinal",
+      "name": "Cholecystectomy",
+      "section": "0",
+      "triggers": [
+        "cholecystectomy",
+        "gallbladder removal"
+      ],
+      "root_operation_hint": "Resection",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Hepatobiliary System and Pancreas",
+          "approach": "Percutaneous Endoscopic|Open"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "\\bdrain\\b|jp drain|cholecystostomy tube",
+          "device": "Drainage Device"
+        }
+      ]
+    },
+    {
+      "specialty": "Cardiovascular",
+      "name": "PTCA (Coronary Angioplasty)",
+      "section": "0",
+      "triggers": [
+        "\\bptca\\b",
+        "\\bangioplasty\\b",
+        "\\bballoon\\b.*\\b(lad|rca|lcx|om|diag)\\b"
+      ],
+      "root_operation_hint": "Dilation",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Heart and Great Vessels",
+          "approach": "Percutaneous"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "\\bstent|des|drug-eluting\\b",
+          "device": "Intraluminal Device"
+        }
+      ],
+      "qualifier_hints": [
+        {
+          "if": "\\bmult(ivessel|iple)\\b",
+          "qualifier": "Multiple Coronary Arteries"
+        }
+      ]
+    },
+    {
+      "specialty": "Gastrointestinal",
+      "name": "Hartmann Colostomy",
+      "section": "0",
+      "triggers": [
+        "hartm(?:ann)?",
+        "\\bend colostomy\\b"
+      ],
+      "root_operation_hint": "Bypass",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Gastrointestinal System",
+          "approach": "Open|Percutaneous Endoscopic"
+        }
+      ],
+      "qualifier_hints": [
+        "Cutaneous"
+      ],
+      "multi_code_recipe": [
+        "Resection Sigmoid Colon",
+        "Bypass Descending/Sigmoid Colon to Cutaneous"
+      ]
+    },
+    {
+      "specialty": "Cardiovascular",
+      "name": "Aneurysm Repair (EVAR/Open)",
+      "section": "0",
+      "triggers": [
+        "\\bevar\\b",
+        "endovascular.*aneurysm",
+        "aortic aneurysm repair"
+      ],
+      "root_operation_hint": "Replacement|Supplement|Repair",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Heart and Great Vessels|Lower Arteries|Upper Arteries",
+          "approach": "Percutaneous|Open"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "\\bstent graft|endograft\\b",
+          "device": "Intraluminal Device"
+        }
+      ]
+    },
+    {
+      "specialty": "Respiratory",
+      "name": "BAL / Lavage",
+      "section": "0",
+      "triggers": [
+        "\\bbal\\b",
+        "bronchoalveolar lavage",
+        "bronchoscopy.*lavage"
+      ],
+      "root_operation_hint": "Drainage",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Respiratory System",
+          "approach": "Natural or Artificial Opening Endoscopic"
+        }
+      ]
+    },
+    {
+      "specialty": "Cardiovascular",
+      "name": "Endarterectomy",
+      "section": "0",
+      "triggers": [
+        "endarterectomy",
+        "carotid\\b.*endarterectomy"
+      ],
+      "root_operation_hint": "Extirpation",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Upper Arteries|Lower Arteries|Heart and Great Vessels",
+          "approach": "Open"
+        }
+      ]
+    },
+    {
+      "specialty": "Urinary",
+      "name": "Dilation / Stenting (Ureter)",
+      "section": "0",
+      "triggers": [
+        "ureter(al)?.*(dilation|balloon)",
+        "jj stent|double[-\\s]?j",
+        "stent placed.*ureter"
+      ],
+      "root_operation_hint": "Dilation|Insertion",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Urinary System",
+          "approach": "Percutaneous Endoscopic|Open"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "stent",
+          "device": "Intraluminal Device"
+        }
+      ]
+    },
+    {
+      "specialty": "Respiratory",
+      "name": "Lung or Pleural Biopsy",
+      "section": "0",
+      "triggers": [
+        "lung biopsy",
+        "pleural biopsy",
+        "thoracoscopic.*biopsy"
+      ],
+      "root_operation_hint": "Excision",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Respiratory System",
+          "approach": "Percutaneous Endoscopic|Percutaneous|Open"
+        }
+      ],
+      "qualifier_hints": [
+        {
+          "if": "\\bbiopsy\\b",
+          "qualifier": "Diagnostic"
+        }
+      ]
+    },
+    {
+      "specialty": "Respiratory",
+      "name": "Tracheostomy",
+      "section": "0",
+      "triggers": [
+        "tracheostomy",
+        "tracheotomy"
+      ],
+      "root_operation_hint": "Bypass",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Respiratory System",
+          "approach": "Open|Percutaneous Endoscopic"
+        }
+      ],
+      "qualifier_hints": [
+        "Tracheostomy|Cutaneous"
+      ]
+    },
+    {
+      "specialty": "Cardiovascular",
+      "name": "ECMO",
+      "section": "5A",
+      "triggers": [
+        "\\becmo\\b",
+        "extracorporeal membrane oxygenation"
+      ],
+      "root_operation_hint": "Assistance",
+      "note": "Outside Section 0: 5A1 (Extracorporeal Assistance & Performance)."
+    },
+    {
+      "specialty": "Cardiovascular",
+      "name": "Cardiac Catheterization + Coronary Angiography",
+      "section": "B",
+      "triggers": [
+        "cardiac catheterization",
+        "coronary angiograph(y|ic)",
+        "left heart cath"
+      ],
+      "root_operation_hint": "Imaging",
+      "note": "Angiography is Section B (Imaging). Catheter insertion usually not coded separately."
+    },
+    {
+      "specialty": "Peripheral vascular",
+      "name": "Stenting (Peripheral)",
+      "section": "0",
+      "triggers": [
+        "stent.*(iliac|femoral|popliteal|tibial|peroneal|subclavian)",
+        "angioplasty.*stent"
+      ],
+      "root_operation_hint": "Dilation|Insertion",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Upper Arteries|Lower Arteries",
+          "approach": "Percutaneous"
+        }
+      ],
+      "device_hints": [
+        {
+          "if": "stent",
+          "device": "Intraluminal Device"
+        }
+      ]
+    },
+    {
+      "specialty": "Peripheral vascular",
+      "name": "EKOS (Ultrasound-assisted thrombolysis)",
+      "section": "3|5A",
+      "triggers": [
+        "ekos",
+        "ultrasound.*thrombolysis"
+      ],
+      "root_operation_hint": "Administration|Assistance",
+      "note": "Drug Administration (Section 3) + device assistance (5A) \u2014 outside Section 0."
+    },
+    {
+      "specialty": "Peripheral vascular",
+      "name": "Penumbra (Mechanical Thrombectomy)",
+      "section": "0",
+      "triggers": [
+        "penumbra",
+        "mechanical thrombect",
+        "aspiration thrombect"
+      ],
+      "root_operation_hint": "Extirpation|Fragmentation",
+      "body_system_hints": [
+        {
+          "if": ".*",
+          "body_system": "Upper Arteries|Lower Arteries|Upper Veins|Lower Veins",
+          "approach": "Percutaneous"
+        }
+      ]
+    }
+  ]
+}
