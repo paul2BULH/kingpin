@@ -5,6 +5,7 @@ from utils.pcs_builder import summarize_candidates, map_to_pcs_code
 from utils.rules_engine import load_rules, apply_rules, build_code_skeleton
 from utils.gemini_api import analyze_with_gemini
 from utils.validation import TablesContext, resolve_code
+from utils.pdf_utils import extract_text_from_pdf
 
 st.set_page_config(page_title="PCS Section 0 – MVP", layout="wide")
 
@@ -24,7 +25,9 @@ rules_path = os.path.join('assets', 'pcs_guidelines_rules_2025.json')
 RULES = load_rules(rules_path) if os.path.exists(rules_path) else None
 TABLES_CTX = TablesContext(assets_dir='assets')
 
-st.subheader("1) Paste Procedure Text")
+c1, c2, c3 = st.columns(3)
+analyze = st.button("Analyze (Section 0 heuristics)")
+st.subheader("1) Upload or Paste Procedure Note")
 sample_1 = "Laparoscopic cholecystectomy performed. Critical view achieved. Gallbladder removed. A JP drain was placed."
 sample_2 = "Incision and drainage of right forearm abscess under local anesthesia; wound irrigated and packed."
 sample_3 = "Open reduction and internal fixation (ORIF) of distal radius fracture with plate and screws."
@@ -36,6 +39,17 @@ if c2.button("Try: I&D forearm abscess"):
     st.session_state["proc_text"] = sample_2
 if c3.button("Try: ORIF distal radius"):
     st.session_state["proc_text"] = sample_3
+
+uploaded_file = st.file_uploader("Upload Procedure Note (PDF or TXT)", type=["pdf", "txt"])
+file_text = ""
+if uploaded_file is not None:
+    if uploaded_file.type == "application/pdf":
+        file_text = extract_text_from_pdf(uploaded_file)
+        if not file_text:
+            st.warning("Could not extract text from PDF. Please check the file.")
+    elif uploaded_file.type == "text/plain":
+        file_text = uploaded_file.read().decode("utf-8", errors="ignore")
+    st.session_state["proc_text"] = file_text or ""
 
 proc_text = st.text_area("Procedure note / Operative note", value=st.session_state.get("proc_text", ""), height=220, placeholder="Paste operative text here...")
 
